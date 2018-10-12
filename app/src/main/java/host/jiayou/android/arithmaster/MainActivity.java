@@ -14,6 +14,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
+
 import java.lang.Math;
 
 import bsh.Interpreter;
@@ -130,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         };
         mCountDownTimer.start();
 
+        SpeechUtility.createUtility(context, SpeechConstant.APPID +"=5bbfeec8");
 
     }
 
@@ -150,14 +154,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String answer(String question){
-try{
-        Interpreter bsh = new Interpreter();                  //声明Interpreter类
-        Number result = (Number)bsh.eval(question);
-        return result.toString();
-    }catch (Exception e)
-    {
-        return e.toString();
-    }
+        try{
+            Interpreter bsh = new Interpreter();                  //声明Interpreter类
+            Number result = (Number)bsh.eval(question);
+            return result.toString();
+        }catch (Exception e)        {
+            return e.toString();
+        }
 
 
     }
