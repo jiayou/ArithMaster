@@ -1,6 +1,7 @@
 package host.jiayou.android.arithmaster;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
@@ -9,6 +10,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
 
         return false;
     }
+    ProgressBar mProgressBar;
+    CountDownTimer mCountDownTimer;
+    int i=0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +108,28 @@ public class MainActivity extends AppCompatActivity {
                 next();
             }
         });
+
+        mProgressBar=(ProgressBar)findViewById(R.id.progressbar);
+        mProgressBar.setProgress(i);
+        mCountDownTimer=new CountDownTimer(5000,1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+//                Log.v("Log_tag", "Tick of Progress"+ i+ millisUntilFinished);
+                i++;
+                mProgressBar.setProgress((int)i*100/(5000/1000));
+
+            }
+
+            @Override
+            public void onFinish() {
+                //Do what you want
+                i++;
+                mProgressBar.setProgress(100);
+            }
+        };
+        mCountDownTimer.start();
+
 
     }
 
